@@ -66,8 +66,6 @@
                 <Button fx:id="createAccountButton" styleClass="nav-button" text="Create Account" />
                 <Button fx:id="logInButton" styleClass="nav-button" text="Log In" />
                 <Button fx:id="viewArticlesButton" styleClass="nav-button" text="View Articles" />
-                <Button fx:id="recommendationsButton" styleClass="nav-button" text="Recommendations" />
-                <Button fx:id="likedArticlesButton" styleClass="nav-button" text="Liked Articles" />
             </children>
         </VBox>
     </children>

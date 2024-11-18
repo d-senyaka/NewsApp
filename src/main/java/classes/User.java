@@ -16,8 +16,19 @@ public class User {
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             throw new IllegalArgumentException("All fields must be filled.");
         }
+        if (username.length() < 3) {
+            throw new IllegalArgumentException("Username must be at least 3 characters long.");
+        }
+        if (!email.contains("@") || !email.endsWith(".com")) {
+            throw new IllegalArgumentException("Invalid email format.");
+        }
+        if (password.length() < 8) {
+            throw new IllegalArgumentException("Password must be at least 8 characters long.");
+        }
+        if (!password.equals(confirmPassword)) {
+            throw new IllegalArgumentException("Passwords do not match.");
+        }
     }
-
 
     public String getUsername() {
         return username;

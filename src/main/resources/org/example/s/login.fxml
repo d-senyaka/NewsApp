@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="757.0" prefWidth="682.0" stylesheets="@../../../css/login-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+<AnchorPane prefHeight="732.0" prefWidth="682.0" stylesheets="@../../../css/login-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
 
     <!-- Top Section for Title -->
-    <VBox alignment="CENTER" prefHeight="100.0" styleClass="top-section" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <VBox alignment="CENTER" prefHeight="82.0" prefWidth="682.0" styleClass="top-section" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Label styleClass="title-label" text="Login" textFill="white" />
     </VBox>
 
     <!-- Center Section containing User and Admin Login, aligned horizontally -->
-    <HBox alignment="CENTER" prefHeight="500.0" spacing="30.0" styleClass="center-section" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0">
+    <HBox alignment="CENTER" layoutY="156.8" prefHeight="463.0" prefWidth="682.0" spacing="30.0" styleClass="center-section" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="157.0">
         <!-- User Login Section -->
-        <VBox alignment="CENTER" spacing="15.0" styleClass="user-login-section">
+        <VBox alignment="CENTER" prefHeight="407.0" spacing="15.0" styleClass="user-login-section">
             <Label styleClass="section-title" text="User Login" />
             <TextField fx:id="usernameField" promptText="User name or Email" styleClass="input-field" />
             <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field" />
@@ -27,10 +27,11 @@
     </HBox>
 
     <!-- Bottom Section for Back and Home Buttons, centered horizontally -->
+    <!-- Bottom Section for Back and Home Buttons, centered horizontally -->
     <HBox alignment="CENTER" prefHeight="100.0" spacing="20.0" styleClass="bottom-section" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <Button styleClass="bottom-button" text="Back" />
-        <Button styleClass="bottom-button" text="Home" />
+        <Button fx:id="backButton" styleClass="login-button" text="Back To Home" />
         <Button styleClass="login-button" text="Admin Login" />
     </HBox>
+
 
 </AnchorPane>

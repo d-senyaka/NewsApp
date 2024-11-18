@@ -1,34 +1,33 @@
 package classes;
 
-import java.util.List;
-
 public class Article {
-    private String articleID;
     private String title;
+    private String description;
+    private String imageUrl;
+    private String publishedAt;
+    private String source;
+    private String author;
+    private String url;
     private String content;
-    private String category;
 
-    public Article(String articleID, String title, String content, String category) {
-        this.articleID = articleID;
+    public Article(String title, String description, String imageUrl, String publishedAt, String source, String author, String url, String content) {
         this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.publishedAt = publishedAt;
+        this.source = source;
+        this.author = author;
+        this.url = url;
         this.content = content;
-        this.category = category;
     }
+
     // Getters
-    public String getArticleID() {
-        return articleID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
+    public String getTitle() { return title; }
+    public String getDescription() { return description; }
+    public String getImageUrl() { return imageUrl; }
+    public String getPublishedAt() { return publishedAt; }
+    public String getSource() { return source; }
+    public String getAuthor() { return author; }
+    public String getUrl() { return url; }
+    public String getContent() { return content; }
 }

@@ -42,7 +42,7 @@
             </Button>
 
             <!-- Back Button -->
-            <Button fx:id="backButton" styleClass="back-button" text="Back">
+            <Button fx:id="backButton" styleClass="back-button" text="Back To Home">
                 <font>
                     <Font size="16.0" />
                 </font>
