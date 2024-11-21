@@ -16,16 +16,12 @@ public class HomeController {
     @FXML private Text titleText;
     @FXML private Button createAccountButton;
     @FXML private Button viewArticlesButton;
-    @FXML private Button recommendationsButton;
-    @FXML private Button likedArticlesButton;
     @FXML private Button logInButton;
 
     @FXML
     public void initialize() {
         createAccountButton.setOnAction(event -> handleCreateAccount());
         viewArticlesButton.setOnAction(event -> handleViewArticles());
-        recommendationsButton.setOnAction(event -> handleRecommendations());
-        likedArticlesButton.setOnAction(event -> handleLikedArticles());
         logInButton.setOnAction(event -> handleLogIn());
     }
 
@@ -55,13 +51,6 @@ public class HomeController {
         showAlert("View Articles button clicked.");
     }
 
-    private void handleRecommendations() {
-        showAlert("Recommendations button clicked.");
-    }
-
-    private void handleLikedArticles() {
-        showAlert("Liked Articles button clicked.");
-    }
 
     private void handleLogIn() {
         openLoginPage();

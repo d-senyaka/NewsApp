@@ -11,6 +11,7 @@ module org.example.newsapp {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens org.example.newsapp to javafx.fxml;
     exports org.example.newsapp;
