@@ -1,5 +1,6 @@
 package controllers;
 
+import classes.UserLogin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,48 @@ public class LoginController {
         backButton.setOnAction(event -> goBackToHome()); // Set event for backButton
     }
 
+    private void handleLogin() {
+        String usernameOrEmail = usernameField.getText();
+        String password = passwordField.getText();
+
+        UserLogin userLogin = new UserLogin();
+        String result = userLogin.authenticate(usernameOrEmail, password);
+
+        if (result != null) {
+            showAlert(Alert.AlertType.ERROR, "Login Error", result);
+        } else {
+
+
+
+            showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome back!");
+
+            // Open the ArtCategory.fxml GUI
+            openArtCategory();
+        }
+    }
+
+
+    private void openArtCategory() {
+        try {
+            // Load ArtCategory.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/s/"));
+            Parent root = loader.load();
+
+            // Create a new stage for ArtCategory GUI
+            Stage artCategoryStage = new Stage();
+            artCategoryStage.setTitle("Headlines Plus - Categories");
+            artCategoryStage.setScene(new Scene(root));
+            artCategoryStage.show();
+
+            // Close the current login GUI stage
+            Stage currentStage = (Stage) loginButton.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Unable to load the ArtCategory page.");
+        }
+    }
+
 
     private void goBackToHome() {
         try {
@@ -48,6 +91,10 @@ public class LoginController {
             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Unable to load the home page.");
         }
     }
+
+
+
+
 
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
