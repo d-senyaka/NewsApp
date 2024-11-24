@@ -1,7 +1,7 @@
 package classes;
 
 import classes.DatabaseConnector;
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
 
 import java.sql.*;
 
@@ -18,7 +18,7 @@ public class UserLogin {
             }
         }
 
-        String query = "SELECT username, email, password_hash FROM users WHERE username = ? OR email = ?";
+        String query = "SELECT user_id, username, email, password_hash FROM users WHERE username = ? OR email = ?";
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -27,27 +27,26 @@ public class UserLogin {
             ResultSet rs = stmt.executeQuery();
 
             if (!rs.next()) {
-                return "Incorrect username or email."; // No user found
+                return "Incorrect username or email.";
             }
 
             String dbPasswordHash = rs.getString("password_hash");
-
-            // Password mismatch handling
             if (!verifyPassword(password, dbPasswordHash)) {
                 return "The password you entered is incorrect.";
             }
 
+            // Set user session details
+            int userId = rs.getInt("user_id"); // Updated column name
+            String username = rs.getString("username");
+            String email = rs.getString("email");
+
             return null; // Successful authentication
 
-        } catch (CommunicationsException e) {
-            // Database connection failure (e.g., MySQL server not running)
-            System.err.println("Database connection error: " + e.getMessage());
-            return "Database failure. Please try again later."; // Return error message for the controller
         } catch (SQLException e) {
-            // Handle other SQL exceptions
-            System.err.println("SQL error: " + e.getMessage());
+            e.printStackTrace();
             return "Database error. Please try again later.";
         }
+
     }
 
     private boolean verifyPassword(String enteredPassword, String dbPasswordHash) {
