@@ -1,0 +1,200 @@
+/* Root pane styling */
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom, #f0f4f8, #d9e4f5);
+    -fx-padding: 20px;
+}
+
+/* Header container styling */
+.header-container {
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+}
+
+/* Headline styling */
+.headline-text {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 36px;
+    -fx-fill: linear-gradient(to right, #0066cc, #00ccff);
+    -fx-text-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 2, 2);
+    -fx-background-color: linear-gradient(to right, #00264d, #0052cc);
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
+    -fx-alignment: center;
+}
+
+/* ScrollPane styling */
+.articles-container {
+    -fx-spacing: 15px;
+    -fx-padding: 10px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5px;
+}
+
+/* Styling for individual articles */
+.article-box {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0, 2, 2);
+    -fx-alignment: top-left;
+
+    /* Ensure the article spans the full width */
+    -fx-pref-width: 100%; /* Match the parent container */
+    -fx-max-width: Infinity; /* Allow flexibility */
+    -fx-box-sizing: border-box;
+}
+
+/* Article title styling */
+.article-title {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 18px;
+    -fx-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+/* Article description styling */
+.article-description {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-fill: #666666;
+    -fx-wrap-text: true;
+    -fx-padding: 5px 0 0 0;
+}
+
+/* Article metadata styling */
+.article-metadata {
+    -fx-font-family: "Arial";
+    -fx-font-size: 12px;
+    -fx-fill: #999999;
+    -fx-wrap-text: true;
+    -fx-padding: 10px 0 0 0;
+}
+
+/* Article image styling */
+.article-image {
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 2, 2);
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+/* No articles message */
+.no-articles-text {
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+    -fx-fill: #666;
+    -fx-text-alignment: center;
+    -fx-padding: 10px;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+    -fx-pref-width: 200px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #0073e6;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.dropdown-menu:focused {
+    -fx-border-color: #005bb5;
+    -fx-border-width: 3px;
+}
+
+/* Label styling */
+.category-label {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+    -fx-padding: 5px;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5px;
+    -fx-background-color: #f9f9f9;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0, 1, 1);
+}
+
+
+
+
+/* Button container styling */
+.button-container {
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+/* Button styling */
+.nav-button {
+    -fx-background-color: #0073e6;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #005bb5;
+}
+
+.nav-button:pressed {
+    -fx-background-color: #003f80;
+}
+
+/* General button styles */
+.button-box {
+    alignment: center-left;
+    spacing: 10px;
+}
+
+.read-more-button {
+    -fx-background-color: #004ff6;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 12px;
+}
+
+.read-more-button:hover {
+    -fx-background-color: #51a8fd;
+}
+
+.like-button {
+    -fx-background-color: #ff0000;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 12px;
+}
+
+.like-button:hover {
+    -fx-background-color: #fb8c8c;
+}
+
+.skip-button {
+    -fx-background-color: #017a32;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 12px;
+}
+
+.skip-button:hover {
+    -fx-background-color: #3fb500;
+}
+
+.button-box .button:pressed {
+    -fx-opacity: 0.7;
+}
