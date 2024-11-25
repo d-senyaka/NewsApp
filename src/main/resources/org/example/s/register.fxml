@@ -20,6 +20,7 @@
             </Label>
         </VBox>
 
+
         <!-- Bottom Section for Registration Fields -->
         <VBox alignment="CENTER" layoutY="76.8" maxWidth="600.0" prefHeight="354.0" prefWidth="600.0" spacing="10.0" styleClass="form-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="77.0">
             <TextField fx:id="usernameField" maxWidth="300.0" promptText="Desired Username" styleClass="input-field" />
