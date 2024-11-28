@@ -20,4 +20,6 @@ module org.example.newsapp {
     // Open only the required packages for JavaFX reflection
     opens controllers to javafx.fxml;
     opens classes to javafx.fxml;
+    exports article_categorization;
+    opens article_categorization to javafx.fxml;
 }

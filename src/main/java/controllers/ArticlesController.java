@@ -1,7 +1,7 @@
 package controllers;
 
-import classes.Article;
-import classes.ArticleManager;
+import article_categorization.Article;
+import article_categorization.ArticleManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
