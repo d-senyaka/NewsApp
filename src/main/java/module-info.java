@@ -22,4 +22,6 @@ module org.example.newsapp {
     opens classes to javafx.fxml;
     exports article_categorization;
     opens article_categorization to javafx.fxml;
+    exports user_management;
+    opens user_management to javafx.fxml;
 }

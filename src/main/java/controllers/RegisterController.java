@@ -1,7 +1,7 @@
 package controllers;
 
-import classes.User;
-import classes.UserDB;
+import user_management.User;
+import user_management.UserDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;

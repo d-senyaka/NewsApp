@@ -11,6 +11,7 @@ interface ArticleFetchStrategy {
     List<article_categorization.Article> fetchArticles(Connection conn) throws Exception;
 }
 
+
 public class ArticleManager {
     private ArticleFetchStrategy fetchStrategy;
 

@@ -1,6 +1,6 @@
 package controllers;
 
-import classes.UserLogin;
+import user_management.UserLogin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

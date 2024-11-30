@@ -82,9 +82,11 @@ public class ArticleCategorizer {
     public List<article_categorization.Article> getArticlesByCategory(String category) {
         List<article_categorization.Article> articles = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getConnection()) {
+
             String query = "SELECT * FROM article_table_c WHERE category = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, category);
+
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -106,6 +108,7 @@ public class ArticleCategorizer {
         }
         return articles;
     }
+
 
     public List<article_categorization.Article> getAllArticles() {
         List<article_categorization.Article> articles = new ArrayList<>();

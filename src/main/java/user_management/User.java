@@ -1,23 +1,61 @@
-package classes;
+package user_management;
+
+import classes.DatabaseConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class User {
+// Polymorphic Interface for Users
+interface IUser {
+    String getUsername();
+    String getEmail();
+}
+
+// Concrete Implementation of Regular User
+public class User implements IUser {
     private String username;
     private String email;
     private String password;
 
     public User(String username, String email, String password, String confirmPassword) {
-        validateFields(username, email, password, confirmPassword);
+        UserValidator.validate(username, email, password, confirmPassword);
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    private void validateFields(String username, String email, String password, String confirmPassword) {
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password; // Note: Passwords should be hashed before storing
+    }
+}
+
+// Specialized Admin User Class
+class AdminUser extends User {
+    private String adminCode;
+
+    public AdminUser(String username, String email, String password, String confirmPassword, String adminCode) {
+        super(username, email, password, confirmPassword);
+        this.adminCode = adminCode;
+    }
+
+    public String getAdminCode() {
+        return adminCode;
+    }
+}
+
+// Utility Class for Validation
+class UserValidator {
+    public static void validate(String username, String email, String password, String confirmPassword) {
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             throw new IllegalArgumentException("All fields must be filled.");
         }
@@ -34,23 +72,23 @@ public class User {
             throw new IllegalArgumentException("Passwords do not match.");
         }
 
-        // Check if the username or email is already in use
+        // Check database for existing username and email
         if (isUsernameInUse(username)) {
-            throw new IllegalArgumentException("Username is already in use. Use another");
+            throw new IllegalArgumentException("Username is already in use. Use another.");
         }
         if (isEmailInUse(email)) {
-            throw new IllegalArgumentException("Email is already in use. Use another");
+            throw new IllegalArgumentException("Email is already in use. Use another.");
         }
     }
 
-    private boolean isUsernameInUse(String username) {
+    private static boolean isUsernameInUse(String username) {
         String query = "SELECT COUNT(*) FROM users WHERE username = ?";
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Username exists if count > 0
+                return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,31 +97,19 @@ public class User {
         return false;
     }
 
-    private boolean isEmailInUse(String email) {
+    private static boolean isEmailInUse(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Email exists if count > 0
+                return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Database error while checking email.");
         }
         return false;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password; // This should be hashed before storing in a real application
     }
 }

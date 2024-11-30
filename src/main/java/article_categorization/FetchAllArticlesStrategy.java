@@ -10,7 +10,9 @@ import java.util.List;
 public class FetchAllArticlesStrategy implements article_categorization.ArticleFetchStrategy {
     @Override
     public List<article_categorization.Article> fetchArticles(Connection conn) throws Exception {
+
         List<article_categorization.Article> articles = new ArrayList<>();
+
         String query = "SELECT id, title, description, urlToImage, publishedAt, source_name, author, url, content, category FROM article_table_d";
         try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {

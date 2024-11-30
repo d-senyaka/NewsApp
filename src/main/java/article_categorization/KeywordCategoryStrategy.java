@@ -5,6 +5,7 @@ import java.util.Map;
 
 // Concrete Strategy for Keyword-based Categorization
 public class KeywordCategoryStrategy implements article_categorization.CategoryStrategy {
+
     private final CategoryManager categoryManager = new CategoryManager();
 
     @Override
