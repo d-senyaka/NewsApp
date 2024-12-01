@@ -40,18 +40,7 @@ public class User implements IUser {
 }
 
 // Specialized Admin User Class
-class AdminUser extends User {
-    private String adminCode;
 
-    public AdminUser(String username, String email, String password, String confirmPassword, String adminCode) {
-        super(username, email, password, confirmPassword);
-        this.adminCode = adminCode;
-    }
-
-    public String getAdminCode() {
-        return adminCode;
-    }
-}
 
 // Utility Class for Validation
 class UserValidator {

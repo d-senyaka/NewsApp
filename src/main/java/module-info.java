@@ -1,4 +1,4 @@
-module org.example.newsapp {
+module org.example.api {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
