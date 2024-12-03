@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="732.0" prefWidth="682.0" stylesheets="@../../../css/login-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserAccountController">
+
+    <!-- Top Section for Title -->
+    <VBox alignment="CENTER" prefHeight="82.0" prefWidth="682.0" styleClass="top-section" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label styleClass="title-label" text="My Account" textFill="white" />
+    </VBox>
+
+    <!-- Center Section containing User and Admin Login, aligned horizontally -->
+    <HBox alignment="CENTER" layoutY="156.8" prefHeight="463.0" prefWidth="682.0" spacing="30.0" styleClass="center-section" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="157.0">
+        <!-- User Login Section -->
+        <VBox alignment="CENTER" prefHeight="407.0" spacing="15.0" styleClass="user-login-section">
+            <Label styleClass="section-title" text="Update Your Details (If needed)" />
+            <TextField fx:id="usernameField" promptText="New Username (If needed)" styleClass="input-field" />
+            <TextField fx:id="emailField" promptText="New Email (If needed)" styleClass="input-field" />
+            <PasswordField fx:id="passwordField" promptText="New Password (If needed)" styleClass="input-field" />
+            <PasswordField fx:id="confirmPasswordField" promptText="Re-enter Password" styleClass="input-field" />
+            <Button fx:id="updateButton" styleClass="login-button" text="Update" />
+        </VBox>
+        <Button fx:id="myHistory"  onAction="#openHistoryGUI" styleClass="login-button" text="My History" />
+    </HBox>
+
+    <!-- Bottom Section for Navigation Buttons -->
+    <HBox alignment="CENTER" prefHeight="100.0" spacing="20.0" styleClass="bottom-section" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Button fx:id="goToArticlesButton"  onAction="#openArtCategory" prefHeight="46.0" prefWidth="185.0" styleClass="login-button" text="Go To Articles" />
+        <Button fx:id="logOutButton" onAction="#logOut"  styleClass="login-button" text="Log Out" />
+    </HBox>
+
+</AnchorPane>
