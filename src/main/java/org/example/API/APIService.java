@@ -1,4 +1,4 @@
-package org.example.api;
+package org.example.API;
 
 public class APIService {
     private static final String API_KEY = "";

@@ -1,4 +1,4 @@
-package org.example.api;
+package org.example.API;
 
 import classes.Article; // Updated to use `classes.Article`.
 import org.json.JSONArray;

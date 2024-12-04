@@ -1,4 +1,4 @@
-module org.example.api {
+module org.example.API {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
