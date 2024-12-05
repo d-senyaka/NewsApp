@@ -1,7 +1,10 @@
 package article_categorization;
 
+import java.util.Map;
+
 // Concrete implementation of the interface
 public class Article implements InterfaceArticle {
+
     private int id;
     private String title;
     private String description;
@@ -97,8 +100,33 @@ public class Article implements InterfaceArticle {
         return id == article.id;
     }
 
+    //for recommendation engine
+
+    public Article(int id, String title, String description, String content, String category) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.category = category;
+    }
+
+
     @Override
     public int hashCode() {
         return Integer.hashCode(id);
     }
+
+
+    private Map<String, Double> tfidfVector;
+
+    public void setTfIdfVector(Map<String, Double> vector) {
+        this.tfidfVector = vector;
+    }
+
+    public Map<String, Double> getTfidfVector() {
+        return tfidfVector;
+    }
+
+
+
 }

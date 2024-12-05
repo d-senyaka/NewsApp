@@ -8,23 +8,22 @@ import java.util.List;
 
 // Strategy Interface for Fetching Articles
 interface ArticleFetchStrategy {
-    List<article_categorization.Article> fetchArticles(Connection conn) throws Exception;
+    List<Article> fetchArticles(Connection conn) throws Exception;
 }
-
 
 public class ArticleManager {
     private ArticleFetchStrategy fetchStrategy;
 
     public ArticleManager() {
-        this.fetchStrategy = new FetchAllArticlesStrategy(); // Default strategy
+        this.fetchStrategy = new GetUncatArticles(); // Default strategy
     }
 
     public void setFetchStrategy(ArticleFetchStrategy strategy) {
         this.fetchStrategy = strategy;
     }
 
-    public List<article_categorization.Article> getArticlesFromDatabase() {
-        List<article_categorization.Article> articles = new ArrayList<>();
+    public List<Article> getArticlesFromDatabase() {
+        List<Article> articles = new ArrayList<>();
         Connection conn = DatabaseConnector.getConnection();
         if (conn == null) {
             System.out.println("Database connection failed. Unable to fetch articles.");
@@ -39,4 +38,7 @@ public class ArticleManager {
 
         return articles;
     }
+
+
+
 }

@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 // Strategy Interface for Categorization
 interface CategoryStrategy {
@@ -15,7 +18,32 @@ interface CategoryStrategy {
 }
 
 public class ArticleCategorizer {
+
     private CategoryStrategy categoryStrategy;
+
+    private final ExecutorService executorService = Executors.newFixedThreadPool(4); // Thread pool for concurrency
+
+    //concurrency
+    public void categorizeArticlesInParallel() {
+        CompletableFuture.runAsync(() -> {
+            System.out.println("Starting article categorization in parallel...");
+            categorizeAndStoreArticles(); // Call the existing method
+            System.out.println("Article categorization completed.");
+        }, executorService).whenComplete((result, ex) -> {
+            if (ex != null) {
+                System.err.println("Error during categorization: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+            shutdown(); // Shutdown after task completion
+        });
+    }
+
+
+    public void shutdown() {
+        executorService.shutdown();
+        System.out.println("ExecutorService shut down.");
+    }
+
 
     public ArticleCategorizer() {
         this.categoryStrategy = new KeywordCategoryStrategy(); // Default strategy
@@ -24,6 +52,8 @@ public class ArticleCategorizer {
     public void setCategoryStrategy(CategoryStrategy strategy) {
         this.categoryStrategy = strategy;
     }
+
+
 
     public void categorizeAndStoreArticles() {
         try (Connection conn = DatabaseConnector.getConnection()) {
@@ -79,18 +109,16 @@ public class ArticleCategorizer {
         }
     }
 
-    public List<article_categorization.Article> getArticlesByCategory(String category) {
-        List<article_categorization.Article> articles = new ArrayList<>();
+    public List<Article> getArticlesByCategory(String category) {
+        List<Article> articles = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getConnection()) {
-
             String query = "SELECT * FROM article_table_c WHERE category = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, category);
 
-
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                articles.add(new article_categorization.Article(
+                articles.add(new Article(
                         rs.getInt("id"), // id
                         rs.getString("title"),
                         rs.getString("description"),
@@ -109,16 +137,15 @@ public class ArticleCategorizer {
         return articles;
     }
 
-
-    public List<article_categorization.Article> getAllArticles() {
-        List<article_categorization.Article> articles = new ArrayList<>();
+    public List<Article> getAllArticles() {
+        List<Article> articles = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getConnection()) {
             String query = "SELECT * FROM article_table_c";
             PreparedStatement pstmt = conn.prepareStatement(query);
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                articles.add(new article_categorization.Article(
+                articles.add(new Article(
                         rs.getInt("id"), // id
                         rs.getString("title"),
                         rs.getString("description"),
