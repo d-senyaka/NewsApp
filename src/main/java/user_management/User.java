@@ -39,8 +39,6 @@ public class User implements IUser {
     }
 }
 
-// Specialized Admin User Class
-
 
 // Utility Class for Validation
 class UserValidator {

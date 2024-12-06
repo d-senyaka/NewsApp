@@ -34,16 +34,29 @@ public class AdminManageUser {
 
 
     public static boolean deleteUser(int userId) {
-        String query = "DELETE FROM users WHERE user_id = ?";
-        try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            conn.setAutoCommit(false); // Start transaction
 
-            stmt.setInt(1, userId);
-            return stmt.executeUpdate() > 0;
+            // Delete dependent records in user_preferences
+            String deletePreferencesQuery = "DELETE FROM user_preferences WHERE user_id = ?";
+            try (PreparedStatement deletePreferencesStmt = conn.prepareStatement(deletePreferencesQuery)) {
+                deletePreferencesStmt.setInt(1, userId);
+                deletePreferencesStmt.executeUpdate();
+            }
 
+            // Delete the user
+            String deleteUserQuery = "DELETE FROM users WHERE user_id = ?";
+            try (PreparedStatement deleteUserStmt = conn.prepareStatement(deleteUserQuery)) {
+                deleteUserStmt.setInt(1, userId);
+                deleteUserStmt.executeUpdate();
+            }
+
+            conn.commit(); // Commit transaction
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
+
 }
