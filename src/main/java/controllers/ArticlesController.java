@@ -2,6 +2,7 @@ package controllers;
 
 import article_categorization.Article;
 import article_categorization.ArticleManager;
+import article_categorization.GetUncatArticles;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,56 +28,64 @@ public class ArticlesController {
     @FXML
     private Button loginButton;
 
+
+
     public void initialize() {
-        loadArticles();
+
+        ArticleManager manager = new ArticleManager();
+
+        // Example: Use default strategy to fetch all articles
+        manager.setFetchStrategy(new GetUncatArticles());
+        loadArticles(manager);
+
+
     }
 
-    private void loadArticles() {
-        ArticleManager manager = new ArticleManager();
+    private void loadArticles(ArticleManager manager) {
         List<Article> articles = manager.getArticlesFromDatabase();
 
-        if (articles == null) {
-            // Handle the case where the articles list is null
-            System.out.println("Database error occurred. Cannot load articles.");
-            showAlert("Database Failure", "Unable to connect to the database. Please try again later.");
+        if (articles.isEmpty()) {
+            System.out.println("No articles found.");
+            Text noArticlesText = new Text("No articles available at the moment.");
+            articlesContainer.getChildren().add(noArticlesText);
             return;
         }
 
-        System.out.println("Fetched " + articles.size() + " articles from table_d.");
         for (Article article : articles) {
-            VBox articleBox = new VBox();
-            articleBox.getStyleClass().add("article-box");
-
-            // Add image or fallback to "No Image" text
-            try {
-                Image image = new Image(article.getImageUrl(), true);
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(100);
-                imageView.setFitHeight(100);
-                imageView.setPreserveRatio(true);
-                articleBox.getChildren().add(imageView);
-            } catch (Exception e) {
-                Text noImageText = new Text("No Image");
-                noImageText.getStyleClass().add("no-image-text");
-                articleBox.getChildren().add(noImageText);
-            }
-
-            // Add article details
-            Text articleText = new Text(
-                    "Title: " + article.getTitle() + "\n" +
-                            "Description: " + article.getDescription() + "\n" +
-                            "Source: " + article.getSource() + "\n" +
-                            "Author: " + article.getAuthor() + "\n" +
-                            "Published: " + article.getPublishedAt() + "\n\n"
-            );
-            articleText.getStyleClass().add("article-text");
-            articleBox.getChildren().add(articleText);
-
+            VBox articleBox = createArticleBox(article);
             articlesContainer.getChildren().add(articleBox);
         }
     }
 
+    private VBox createArticleBox(Article article) {
+        VBox articleBox = new VBox();
+        articleBox.getStyleClass().add("article-box");
 
+        try {
+            Image image = ImageCache.getInstance().getImage(article.getImageUrl());
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(100);
+            imageView.setFitHeight(100);
+            imageView.setPreserveRatio(true);
+            articleBox.getChildren().add(imageView);
+        } catch (Exception e) {
+            Text noImageText = new Text("No Image");
+            noImageText.getStyleClass().add("no-image-text");
+            articleBox.getChildren().add(noImageText);
+        }
+
+        Text articleDetails = new Text(
+                "Title: " + article.getTitle() + "\n" +
+                        "Description: " + article.getDescription() + "\n" +
+                        "Source: " + article.getSource() + "\n" +
+                        "Author: " + article.getAuthor() + "\n" +
+                        "Published: " + article.getPublishedAt()
+        );
+        articleDetails.getStyleClass().add("article-details");
+        articleBox.getChildren().add(articleDetails);
+
+        return articleBox;
+    }
 
 
     @FXML
@@ -123,4 +132,7 @@ public class ArticlesController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
+
 }

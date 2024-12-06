@@ -1,6 +1,5 @@
 package controllers;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,7 +32,7 @@ public class HomeController {
     private void handleViewArticles() {
         try {
             // Load the articles.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/s/"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/s/articles.fxml"));
             Parent root = loader.load();
 
             // Create a new stage for the articles GUI

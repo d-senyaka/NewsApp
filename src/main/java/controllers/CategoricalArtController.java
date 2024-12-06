@@ -3,7 +3,11 @@ package controllers;
 import article_categorization.Article;
 import article_categorization.ArticleCategorizer;
 import article_categorization.KeywordCategoryStrategy;
+import article_recommendations.UserActionValidator;
 import classes.*;
+import user_action_handlers.ArticleLike;
+import user_action_handlers.ArticleRead;
+import user_action_handlers.ConcreteArticleSkip;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,10 +19,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import recommendationEngine.RecommendationEngine;
+import recommendationEngine.RecommendationStrategy;
+import recommendationEngine.UserDatasetCreator;
+import recommendationEngine.WeightedContentBasedStrategy;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class CategoricalArtController {
 
@@ -43,7 +51,11 @@ public class CategoricalArtController {
     @FXML
     private Button myAccount;
 
+    @FXML
+    private Button logOutButton;
+
     private final ArticleCategorizer articleCategorizer = new ArticleCategorizer();
+
 
     @FXML
     public void initialize() {
@@ -164,7 +176,7 @@ public class CategoricalArtController {
 
         // Add image or fallback to "No Image" text
         try {
-            Image image = new Image(article.getImageUrl(), true);
+            Image image = ImageCache.getInstance().getImage(article.getImageUrl());
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(100);  // Set width as per requirement
             imageView.setFitHeight(100); // Set height as per requirement
@@ -246,9 +258,10 @@ public class CategoricalArtController {
     }
 
     @FXML
-    private void handleRecommendationButtonClick() {
+    private void handleRecommendationButtonClick()  {
         try {
             int userId = UserSession.getInstance().getUserId();
+
 
             // Validate user actions
             UserActionValidator validator = new UserActionValidator();
@@ -280,6 +293,8 @@ public class CategoricalArtController {
                         RecommendationStrategy strategy = new WeightedContentBasedStrategy();
                         RecommendationEngine recommendationEngine = new RecommendationEngine(strategy);
                         recommendationEngine.processRecommendations();
+                        recommendationEngine.generateRecommendationsAsync();
+
 
                         // Load Recommendations.fxml
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/s/Recommendations.fxml"));
@@ -289,13 +304,17 @@ public class CategoricalArtController {
                         stage.setScene(new Scene(root));
                         stage.show();
 
+
                         // Close the current window
                         Stage currentStage = (Stage) recommendationButton.getScene().getWindow();
                         currentStage.close();
+                        //concurrency
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         showAlert(Alert.AlertType.ERROR, "Error", "Failed to process recommendations.");
                     }
+
                 }
             });
 
@@ -303,6 +322,7 @@ public class CategoricalArtController {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to validate user actions.");
         }
+
     }
 
 
@@ -360,6 +380,46 @@ public class CategoricalArtController {
             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Unable to load the History page.");
         }
     }
+
+    @FXML
+    private void logOut() {
+        // Show a confirmation dialog
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirm Logout");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to log out?");
+
+        // Add Yes and No buttons to the alert
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+        confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Wait for the user to respond
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+        // Handle the user's choice
+        if (result.isPresent() && result.get() == yesButton) {
+            try {
+                // Load login.fxml file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/s/login.fxml"));
+                Parent root = loader.load();
+
+                // Create a new stage for the Login GUI
+                Stage loginStage = new Stage();
+                loginStage.setTitle("Log In");
+                loginStage.setScene(new Scene(root));
+                loginStage.show();
+
+                // Close the current stage
+                Stage currentStage = (Stage) logOutButton.getScene().getWindow();
+                currentStage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Navigation Error", "Unable to load the Log In page.");
+            }
+        }
+    }
+
 
 
 }
