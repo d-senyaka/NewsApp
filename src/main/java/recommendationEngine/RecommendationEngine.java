@@ -61,7 +61,7 @@ public class RecommendationEngine {
         }
     }
 
-    private List<Integer> getInteractedArticleIds(int userId) {
+    List<Integer> getInteractedArticleIds(int userId) {
         List<Integer> articleIds = new ArrayList<>();
         String query = "SELECT DISTINCT article_id FROM user_preferences WHERE user_id = ?";
         try (Connection conn = DatabaseConnector.getConnection();

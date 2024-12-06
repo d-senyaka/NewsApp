@@ -12,6 +12,11 @@ module org.example.API {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires org.slf4j;
+    requires org.json;
+    requires org.testng;
+    requires junit;
+    requires java.net.http;
+    requires mahout.math;
 
     // Export the main packages for external use
     exports classes;

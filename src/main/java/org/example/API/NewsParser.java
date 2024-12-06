@@ -1,6 +1,5 @@
 package org.example.API;
 
-import classes.Article; // Updated to use `classes.Article`.
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,8 +14,8 @@ public class NewsParser {
      * @param jsonData The raw JSON string containing article data.
      * @return A list of parsed `classes.Article` objects.
      */
-    public List<Article> parseNews(String jsonData) {
-        List<Article> articles = new ArrayList<>();
+    public List<ArticleAPI> parseNews(String jsonData) {
+        List<ArticleAPI> articleAPIS = new ArrayList<>();
         JSONObject obj = new JSONObject(jsonData);
         JSONArray data = obj.getJSONArray("articles");
 
@@ -36,15 +35,15 @@ public class NewsParser {
             try {
                 // Use `classes.Article`
                 String category = "Uncategorized"; // Default category
-                Article article = new Article(title, description, url, imageUrl, publishedAt, source, author, content, category);
-                articles.add(article);
+                ArticleAPI articleAPI = new ArticleAPI(title, description, url, imageUrl, publishedAt, source, author, content, category);
+                articleAPIS.add(articleAPI);
             } catch (IllegalArgumentException e) {
                 // Handle validation failures in Article constructor
                 System.out.println("Skipping invalid article: " + e.getMessage());
             }
         }
 
-        System.out.println("Total articles parsed: " + articles.size());
-        return articles;
+        System.out.println("Total articles parsed: " + articleAPIS.size());
+        return articleAPIS;
     }
 }

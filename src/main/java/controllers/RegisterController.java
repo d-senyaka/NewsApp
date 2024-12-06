@@ -2,6 +2,7 @@ package controllers;
 
 import user_management.User;
 import user_management.UserDB;
+import classes.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -15,7 +16,6 @@ import javafx.scene.control.ButtonType;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
-
 
 public class RegisterController {
 
@@ -45,25 +45,47 @@ public class RegisterController {
 
             // Save user to the database
             UserDB userDB = new UserDB();
-            int userId = userDB.saveUser(user); // Modify saveUser to return userId
+            int userId = userDB.saveUser(user);
 
-            userDB.saveUser(user);
-
-
+            UserSession.getInstance().setUser(userId, username, email);
 
             // Show success message
-            showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "Welcome to HeadLines Plus!");
+            showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "Welcome to Headlines Plus!");
 
-
+            // Navigate to ArtCategory.fxml
+            openArtCategory();
 
         } catch (IllegalArgumentException e) {
+            // Display user-friendly error messages (e.g., duplicate entry issues)
             showAlert(Alert.AlertType.ERROR, "Registration Error", e.getMessage());
         } catch (SQLException e) {
+            // Handle other database errors
             showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to save user data.");
             e.printStackTrace();
         }
     }
 
+
+    private void openArtCategory() {
+        try {
+            // Load ArtCategory.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/s/ArtCategory.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for ArtCategory GUI
+            Stage artCategoryStage = new Stage();
+            artCategoryStage.setTitle("Headlines Plus - Categories");
+            artCategoryStage.setScene(new Scene(root));
+            artCategoryStage.show();
+
+            // Close the current registration GUI stage
+            Stage currentStage = (Stage) registerButton.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Unable to load the ArtCategory page.");
+        }
+    }
 
 
 

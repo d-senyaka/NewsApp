@@ -1,7 +1,7 @@
 package recommendationEngine;
 
 import article_categorization.Article;
-import handlers.UserPreference;
+import user_action_handlers.UserPreference;
 
 import java.util.*;
 
