@@ -1,6 +1,7 @@
 /* Root background with online image */
 .root {
-    -fx-background-image: url("https://pbs.twimg.com/media/GZeB-g3WsAAlGy6?format=jpg&name=900x900");
+
+    -fx-background-color: linear-gradient(to right, #ff6a00, #ee0979);
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
