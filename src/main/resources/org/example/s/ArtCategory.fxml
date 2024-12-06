@@ -9,12 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="619.0" prefWidth="680.0" styleClass="root-pane" stylesheets="@../../../css/category.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane prefHeight="619.0" prefWidth="680.0" styleClass="root-pane" stylesheets="@../../../css/category.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CategoricalArtController">
     <children>
         <!-- VBox containing headline and dropdown menu -->
         <VBox spacing="20" styleClass="header-container" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <!-- Headline -->
             <Text styleClass="headline-text" text="HeadLines Plus" />
+            <Text styleClass="headline-text" text="Categorized Articles For You" />
 
             <!-- HBox for dropdown and label -->
             <HBox spacing="20" styleClass="filter-container">
@@ -23,18 +24,19 @@
                 <Label fx:id="userLabel" styleClass="category-label" text="User: Guest" />
             </HBox>
 
-            <!-- ScrollPane for articles -->
+            <!-- ScrollPane for articleAPIS -->
             <ScrollPane fx:id="articlesScrollPane" prefHeight="470.0" prefWidth="600.0">
-                <VBox fx:id="articlesContainer" spacing="10" styleClass="articles-container" />
+                <VBox fx:id="articlesContainer" spacing="10" styleClass="articleAPIS-container" />
             </ScrollPane>
 
             <!-- HBox for buttons -->
             <HBox alignment="center" spacing="20" styleClass="button-container">
                 <Button fx:id="recommendationButton" onAction="#handleRecommendationButtonClick" styleClass="nav-button" text="My Recommendations" />
 
-                <Button fx:id="historyButton" styleClass="nav-button" text="My History" />
+                <Button fx:id="myHistory" onAction="#openHistoryGUI" styleClass="nav-button" text="My History" />
+                <Button fx:id="myAccount" onAction="#openUserAccount" styleClass="nav-button" text="My Account" />
+                <Button fx:id="logOutButton" onAction="#logOut" styleClass="nav-button" text="Log Out" />
             </HBox>
         </VBox>
     </children>
 </AnchorPane>
-

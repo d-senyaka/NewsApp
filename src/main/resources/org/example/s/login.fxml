@@ -30,7 +30,7 @@
     <!-- Bottom Section for Back and Home Buttons, centered horizontally -->
     <HBox alignment="CENTER" prefHeight="100.0" spacing="20.0" styleClass="bottom-section" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <Button fx:id="backButton" styleClass="login-button" text="Back To Home" />
-        <Button styleClass="login-button" text="Admin Login" />
+        <Button fx:id="AdminButton" onAction="#openAdminLogin" styleClass="login-button" text="Admin Login" />
     </HBox>
 
 

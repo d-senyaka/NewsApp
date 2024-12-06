@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="600" prefWidth="800" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #f0f4f8);" stylesheets="@../../../css/article-read-style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" >
+<AnchorPane prefHeight="600" prefWidth="800" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #f0f4f8);" stylesheets="@../../../css/article-read-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ArticleReadController">
     <children>
         <VBox layoutX="20" layoutY="20" prefHeight="560" prefWidth="760" spacing="20">
             <!-- Article Title -->

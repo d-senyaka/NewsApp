@@ -16,6 +16,7 @@
         <VBox spacing="20" styleClass="header-container" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <!-- Headline -->
             <Text styleClass="headline-text" text="HeadLines Plus" />
+            <Text styleClass="headline-text" text="Your History" />
 
             <!-- HBox for dropdown and label -->
             <HBox spacing="20" styleClass="filter-container">
